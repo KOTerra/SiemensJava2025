@@ -1,0 +1,109 @@
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 1",
+  "description": "Test item 1",
+  "status": "NEW",
+  "email": "item1@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 2",
+  "description": "Test item 2",
+  "status": "NEW",
+  "email": "item2@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 3",
+  "description": "Test item 3",
+  "status": "NEW",
+  "email": "item3@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 4",
+  "description": "Test item 4",
+  "status": "NEW",
+  "email": "item4@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 5",
+  "description": "Test item 5",
+  "status": "NEW",
+  "email": "item5@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 6",
+  "description": "Test item 6",
+  "status": "NEW",
+  "email": "item6@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 7",
+  "description": "Test item 7",
+  "status": "NEW",
+  "email": "item7@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 8",
+  "description": "Test item 8",
+  "status": "NEW",
+  "email": "item8@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 9",
+  "description": "Test item 9",
+  "status": "NEW",
+  "email": "item9@example.com"
+}
+###
+
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "name": "Item 10",
+  "description": "Test item 10",
+  "status": "NEW",
+  "email": "item10@example.com"
+}
+###
