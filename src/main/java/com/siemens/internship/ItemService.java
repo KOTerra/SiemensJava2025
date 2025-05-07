@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ItemService {
@@ -15,7 +16,7 @@ public class ItemService {
     private ItemRepository itemRepository;
     private static ExecutorService executor = Executors.newFixedThreadPool(10);
     private List<Item> processedItems = new ArrayList<>();
-    private int processedCount = 0;
+    private AtomicInteger processedCount = new AtomicInteger(0);
 
 
     public List<Item> findAll() {
@@ -58,7 +59,7 @@ public class ItemService {
         List<Long> itemIds = itemRepository.findAllIds();
 
         //thread-safe list
-        List<Item> threadSafeProcessedItems = new CopyOnWriteArrayList<>();
+        processedItems = new CopyOnWriteArrayList<>();
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
@@ -70,18 +71,20 @@ public class ItemService {
                     itemRepository.findById(id).ifPresent(item -> {
                         item.setStatus("PROCESSED");
                         itemRepository.save(item);
-                        threadSafeProcessedItems.add(item);
+                        processedItems.add(item);
+                        processedCount.incrementAndGet();   //count++ would not be atomic
+
                     });
 
                 } catch (InterruptedException e) {
-                    throw new RuntimeException("Processing interrupted for item ID: " + id, e);
+                    throw new RuntimeException("Processing error for item ID: " + id, e);
                 }
-            });
+            }, executor);
             futures.add(future);
         }
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenApply(v -> threadSafeProcessedItems)
+                .thenApply(v -> processedItems)
                 .exceptionally(ex -> {
                     System.err.println("Error processing items: " + ex.getMessage());
                     throw new CompletionException(ex);
