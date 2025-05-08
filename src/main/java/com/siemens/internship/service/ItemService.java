@@ -2,6 +2,7 @@ package com.siemens.internship.service;
 
 import com.siemens.internship.dataaccess.ItemRepository;
 import com.siemens.internship.model.Item;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
     private static ExecutorService executor = Executors.newFixedThreadPool(10);
+    @Getter
     private List<Item> processedItems = new ArrayList<>();
+    @Getter
     private AtomicInteger processedCount = new AtomicInteger(0);
 
 
