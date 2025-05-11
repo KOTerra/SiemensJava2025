@@ -36,6 +36,5 @@ public class Item {
             message = "Email format not valid"
     )
     @NotEmpty(message = "Email is required")
-//    @Email(message = "Email format not valid")
     private String email;
 }

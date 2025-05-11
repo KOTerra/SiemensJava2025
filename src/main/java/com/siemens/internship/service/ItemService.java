@@ -1,6 +1,6 @@
 package com.siemens.internship.service;
 
-import com.siemens.internship.dataaccess.ItemRepository;
+import com.siemens.internship.repository.ItemRepository;
 import com.siemens.internship.model.Item;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

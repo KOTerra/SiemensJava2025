@@ -22,13 +22,11 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    // Get all items
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {
         return new ResponseEntity<>(itemService.findAll(), HttpStatus.OK);
     }
 
-    // Create new item with validation
     @PostMapping
     public ResponseEntity<?> createItem(@RequestBody @Valid Item item, BindingResult result) {
         System.out.println("BBBB");
@@ -43,11 +41,9 @@ public class ItemController {
         if (item.getEmail().isEmpty() || !item.getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        //check valid here?
         return new ResponseEntity<>(itemService.save(item), HttpStatus.CREATED);
     }
 
-    // Get item by ID
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItemById(@PathVariable Long id) {
         return itemService.findById(id)
@@ -55,7 +51,6 @@ public class ItemController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND)); //changed from NO_CONTENT
     }
 
-    // Update item by ID
     @PutMapping("/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable Long id, @Valid @RequestBody Item item) {
         Optional<Item> existingItem = itemService.findById(id);
@@ -70,7 +65,6 @@ public class ItemController {
         }
     }
 
-    // Delete item by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         if (itemService.findById(id).isPresent()) {
@@ -81,7 +75,6 @@ public class ItemController {
         }
     }
 
-    // Asynchronously process all items
     @GetMapping("/process")
     public ResponseEntity<List<Item>> processItems() throws ExecutionException, InterruptedException {
         return new ResponseEntity<>(itemService.processItemsAsync().get(), HttpStatus.OK);
